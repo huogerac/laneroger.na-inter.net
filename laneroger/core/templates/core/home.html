@@ -1,7 +1,28 @@
 {% extends 'core/base_core.html' %}
 
+{% load static %}
+
 {% block content %}
-  <div>
-    <h1>Welcome</h1>
+
+<section>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        
+      	<h1 style="font-size: 56px;"> Oi {{ to }},</h1>        	
+      	<figure>
+          <img src="{% static 'themes/default/img/convite_civil.jpg' %}" style="width: 100%!important;height: auto!important;">
+        </figure>
+      	
+      </div>
+
+    </div>
   </div>
+</section>
+  
+
 {% endblock %}
+
+{% block footer_bottom %}
+{% endblock footer_bottom %}
