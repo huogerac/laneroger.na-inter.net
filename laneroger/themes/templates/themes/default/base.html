@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>{% block title %}{{ project_name }}{% endblock %}</title>
+
+        <!-- Basic CSS files -->
+        {% block css %}
+		<link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+      		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    	
+        <link href="{% static 'themes/default/css/base.css' %}" rel="stylesheet" media="screen">
+		<style id="holderjs-style" type="text/css"></style>
+		{% endblock css %}
+
+		<!--  USE THE extracss BLOCK to add CSS here -->
+		{% block extracss %}
+		{% endblock extracss %}		
+
+        <!-- Basic CSS files -->
+        {% block js_top %}
+		<script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+		{% endblock js_top %}
+
+		<!--  USE THE extrajs_top BLOCK to add javascripts here -->
+		{% block extrajs_top %}
+		{% endblock extrajs_top %}
+
+        
+    </head>
+
+    <!--  USE THE body BLOCK to override all the body -->
+    {% block body %}
+	<body>
+
+	    <!--  USE THE extrabody_top BLOCK to add content here -->
+        {% block extrabody_top %}
+        {% endblock extrabody_top %}
+
+        <!--  USE THE topheader_area BLOCK to add content here -->
+        {% block topheader_area %}
+        {% endblock topheader_area %}
+
+		<div id="body-area" class="container"> 
+
+			<!--  USE THE navbar_area BLOCK to add content here -->
+			{% block navbar_area %}
+			<div class="header">
+				<div class="row">
+					<div class="col-lg-7">
+			        	<h3 class="text-muted">{{ project_name }}</h3>
+			        </div>					
+					<div class="col-lg-5">
+				        <ul class="nav nav-pills pull-right">
+							{% block navbar %}
+
+							{% endblock navbar %}
+				        </ul>
+					</div>
+				</div>
+			</div>
+			{% endblock navbar_area %}
+
+			<!--  USE THE header_area BLOCK to add content here -->
+			{% block header_area %}
+					{% block header %}
+					{% endblock header %}
+			{% endblock header_area %}
+
+			<!--  USE THE content_area BLOCK to add the MAIN CONTENT -->
+			{% block content_area %}
+			<div id="container-area">
+
+				<!--  USE THE slide_area BLOCK to add content here -->
+				{% block slider_area %}
+				{% endblock slider_area %}
+
+				<!--  OR USE THE content BLOCK DIRECTLY -->
+				{% block content %}
+
+				{% endblock content %}
+
+			</div>
+			{% endblock content_area %}
+
+			<!--  USE THE extra_content_area BLOCK to add content here -->
+			{% block extra_content_area %}			
+			{% endblock extra_content_area %}
+
+			<!--  USE THE footer_area BLOCK to add content here -->
+			{% block footer_area %}
+		    <footer id="footer-area">
+
+					<!--  USE THE footer_top BLOCK to add content here -->
+                	{% block footer_top %}
+                    {% endblock footer_top %}	
+
+					<!--  USE THE footer BLOCK to add content here -->
+					{% block footer %}
+					{% endblock footer %}
+
+
+		            <!--  USE THE footer_bottom BLOCK to add content here -->
+		            {% block footer_bottom %}
+					<div class="footer">
+						<br/><br/>
+						<p><abbr title="Page:{% block footer_page_name %}None{% endblock %}">HTML</abbr></p>
+						<p class="footerBottom">Copyright © 2014 - {{ project_name }}</p>
+						<p><strong>Policies:</strong>&nbsp;&nbsp;
+							<a href="">Privacy Policy</a>
+							&nbsp;&nbsp; - &nbsp;&nbsp; 
+							<a href="">Terms of Use</a>
+						</p>
+						<p class="footerBottom">Magically Created by Djenie.</p>
+						<p>
+						</p>
+					</div>
+					{% endblock footer_bottom %}
+
+		    </footer>
+		    {% endblock footer_area %}
+
+		</div>
+
+
+        <!--  USE THE extrabody_bottom BLOCK to add content here -->
+        {% block extrabody_bottom %}
+        {% endblock extrabody_bottom %}		
+
+        <!-- Basic JS for this template::: SYDNEY -->
+        {% block js %}
+		<script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        {% endblock js %}
+
+        <!--  USE THE extrajs_bottom BLOCK to add extra javascripts here -->
+        {% block extrajs_bottom %}
+        {% endblock extrajs_bottom %} 
+
+	</body>
+	{% endblock body %}
+
+</html>
