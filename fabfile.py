@@ -18,7 +18,7 @@ REPO_FOLDER_NAME = 'repo'
 PROJECT_NAME = 'laneroger'
 
 ## UPDATE HERE: Enter below the repository URL that will receive your new project code
-PROJECT_REPO = 'git@github.com:huogerac/laneroger.na-inter.net.git'
+PROJECT_REPO = 'https://github.com/huogerac/laneroger.na-inter.net.git'
 
 ## Here are the default NGINX and UPSTAR directories
 NGINX_TARGET_FOLDER = '/etc/nginx'
@@ -81,7 +81,7 @@ def staging():
     env.user = 'mechanics'
     env.password = __get_env_pass__('staging')
     ## UPDATE HERE: Enter below the staging directory where the virtualenv will be created
-    env.targetdir = '/home/user/envs'
+    env.targetdir = '/home/mechanics/envs'
 
 
 def production():
