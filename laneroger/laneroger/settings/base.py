@@ -36,7 +36,7 @@ MANAGERS = ADMINS
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = r"ng-5hpy1o@uru)pekh9v0sm-pp-e-=r=ht8t7pi($9io!$or3n"
+SECRET_KEY = r"g*w1mrha3x&q8a7*748#4+j0ne6s=il%y=74m$e270fo!76c=z"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -159,7 +159,13 @@ LOCAL_APPS = (
 
 BOWER_INSTALLED_APPS = (
     'bootstrap#3.2.0',
-)
+    'jquery#2.1.2',
+    'font-awesome-bower#4.2.0',
+    'classie#1.0.1',
+    'modernizr#~2.8.3',
+    'animate.css#3.2.0',
+    'waypoints#3.0.1',
+    )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

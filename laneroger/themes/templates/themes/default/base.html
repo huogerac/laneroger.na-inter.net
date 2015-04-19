@@ -7,19 +7,31 @@
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>{% block title %}{{ project_name }}{% endblock %}</title>
+        <title>Roger & Elaine | Site Oficial | Aguardem</title>
 
         <!-- Basic CSS files -->
         {% block css %}
+
 		<link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-      		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
+        <link href="{% static 'font-awesome-bower/css/font-awesome.css' %}" rel="stylesheet">
+        <link href="{% static 'themes/default/css/ladda-themeless.min.css' %}" rel="stylesheet">
+        <link href="{% static 'animate.css/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'themes/default/css/owl.carousel.css' %}" rel="stylesheet">
+        <link href="{% static 'themes/default/css/owl.theme.css' %}" rel="stylesheet">
+        <link href="{% static 'themes/default/css/app.css' %}" rel="stylesheet">
     	
-        <link href="{% static 'themes/default/css/base.css' %}" rel="stylesheet" media="screen">
-		<style id="holderjs-style" type="text/css"></style>
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'themes/default/img/favicon/favicon.ico' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'themes/default/img/favicon/favicon.ico' %}" type="image/x-icon">
+		
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+
 		{% endblock css %}
 
 		<!--  USE THE extracss BLOCK to add CSS here -->
@@ -50,24 +62,10 @@
         {% block topheader_area %}
         {% endblock topheader_area %}
 
-		<div id="body-area" class="container"> 
+		 
 
 			<!--  USE THE navbar_area BLOCK to add content here -->
 			{% block navbar_area %}
-			<div class="header">
-				<div class="row">
-					<div class="col-lg-7">
-			        	<h3 class="text-muted">{{ project_name }}</h3>
-			        </div>					
-					<div class="col-lg-5">
-				        <ul class="nav nav-pills pull-right">
-							{% block navbar %}
-
-							{% endblock navbar %}
-				        </ul>
-					</div>
-				</div>
-			</div>
 			{% endblock navbar_area %}
 
 			<!--  USE THE header_area BLOCK to add content here -->
@@ -78,7 +76,6 @@
 
 			<!--  USE THE content_area BLOCK to add the MAIN CONTENT -->
 			{% block content_area %}
-			<div id="container-area">
 
 				<!--  USE THE slide_area BLOCK to add content here -->
 				{% block slider_area %}
@@ -89,7 +86,6 @@
 
 				{% endblock content %}
 
-			</div>
 			{% endblock content_area %}
 
 			<!--  USE THE extra_content_area BLOCK to add content here -->
@@ -129,8 +125,6 @@
 		    </footer>
 		    {% endblock footer_area %}
 
-		</div>
-
 
         <!--  USE THE extrabody_bottom BLOCK to add content here -->
         {% block extrabody_bottom %}
@@ -139,6 +133,14 @@
         <!-- Basic JS for this template::: SYDNEY -->
         {% block js %}
 		<script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/jquery.backstretch.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/jquery.countdown.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/spin.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/ladda.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/retina.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/wow.min.js' %}"></script>
+		<script src="{% static 'themes/default/js/owl.carousel.min.js' %}"></script>
+
         {% endblock js %}
 
         <!--  USE THE extrajs_bottom BLOCK to add extra javascripts here -->
