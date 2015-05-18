@@ -155,6 +155,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'core',
     'themes',
+    'rsvp',
 )
 
 BOWER_INSTALLED_APPS = (

@@ -6,10 +6,12 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('',  # noqa
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
+
+    url(r'^rsvp/', include('rsvp.urls')),
 
     url(r'^', include('core.urls')),
 
