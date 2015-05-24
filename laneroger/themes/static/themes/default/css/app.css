@@ -874,6 +874,44 @@ p.copyright {
 	line-height: 28px;
 }	
 
+.article-img {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+html, html a {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  -o-font-smoothing: antialiased !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+  transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+}
+
+.article-overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  background-color: #000;
+  opacity: 0.5;
+  transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  cursor: pointer;
+}
+.article-img img {
+  width: 100%;
+}
+.article-overlay:hover {
+  opacity: 0;
+}
+
+
+
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
