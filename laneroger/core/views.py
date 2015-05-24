@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 
 class ShowHomeView(TemplateView):
@@ -22,3 +24,10 @@ class SaveTheDateView(TemplateView):
         context = super(SaveTheDateView, self).get_context_data(**kwargs)
         context['to'] = to
         return context
+
+
+class ConfirmacaoRedirectView(RedirectView):
+
+    def dispatch(self, request, *args, **kwargs):
+        self.url = reverse('rsvp.confirmacaohome')
+        return redirect(self.url)

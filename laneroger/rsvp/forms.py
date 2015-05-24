@@ -14,7 +14,8 @@ from .validators import phone_validator
 class ConfirmacaoHomeForm(forms.Form):
     fone = forms.CharField(
         widget=TextInput(attrs={'placeholder': 'Ex: 12 9991 088 998'}),
-        label=_("Telefone"), required=True)
+        label=_("Telefone"), required=True,
+        help_text='Se deseja alterar sua confirmação, entre com o mesmo telefone.')
     email = forms.EmailField(
         widget=EmailInput(attrs={'placeholder': 'Ex: camargo@gmail.com'}),
         label=_("E-mail (opcional)"), required=False)
@@ -35,8 +36,13 @@ class ConvidadoRSVPForm(forms.ModelForm):
         model = ConvidadoRSVP
         fields = ('nome_completo', 'rsvp', 'fone', 'email',)
         help_texts = {
-            'email': 'Informe um email para enviarmos detalhes da localização',
+            'email': 'Informe um email para enviarmos detalhes da localização e descontos em hoteis.',
         }
+
+    def clean_rsvp(self):
+        if self.cleaned_data['rsvp'] == ConvidadoRSVP.RSVP.vazio:
+            raise forms.ValidationError('Responda aqui!!!')
+        return self.cleaned_data['rsvp']
 
 
 class AcompanhanteRSVPForm(forms.ModelForm):
@@ -44,3 +50,7 @@ class AcompanhanteRSVPForm(forms.ModelForm):
     class Meta:
         model = AcompanhanteRSVP
         fields = ('tipo', 'nome', )
+        widgets = {
+            'nome': TextInput(
+                attrs={'placeholder': 'Entre com o nome do acompanhante', }),
+        }

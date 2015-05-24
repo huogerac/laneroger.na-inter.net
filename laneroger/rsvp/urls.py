@@ -15,7 +15,7 @@ urlpatterns = patterns('',  # noqa
         ConfirmacaoHomeView.as_view(),
         name='rsvp.confirmacaohome'),
 
-    url(r'^confirmacao/update/(?P<pk>\d+)/$',
+    url(r'^confirmacao/update/(?P<pk>\d+)-(?P<slug>[\w-]+)/$',
         ConfirmacaoUpdateView.as_view(),
         name='rsvp.confirmacao.update'),
 

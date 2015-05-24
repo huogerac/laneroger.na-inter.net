@@ -4,16 +4,21 @@ from __future__ import absolute_import
 
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.utils.crypto import get_random_string
+from django.core.urlresolvers import reverse
 
 from model_utils import Choices
 
 
 class ConvidadoRSVP(models.Model):
-    RSVP = Choices(('sim', _('Sim')),
+    RSVP = Choices(('vazio', _('....  ?  ')),
+                   ('sim', _('Sim')),
                    ('nao', _('Não')), )
+    slug = models.SlugField(max_length=128,
+                            blank=True, default=get_random_string)
     data = models.DateTimeField(_('data'), auto_now_add=True)
     rsvp = models.CharField('Confirma presença?',
-                            choices=RSVP, default=RSVP.sim,
+                            choices=RSVP, default=RSVP.vazio,
                             max_length=16)
     nome_completo = models.CharField('nome completo', max_length=128)
     email = models.EmailField('e-mail', max_length=128, default='', blank=True)
@@ -26,6 +31,10 @@ class ConvidadoRSVP(models.Model):
 
     def __str__(self):
         return "{0} --> {1}".format(self.nome_completo, self.rsvp)
+
+    def get_absolute_url(self):
+        return reverse('rsvp.confirmacao.update',
+                       kwargs={'pk': self.id, 'slug': self.slug, })
 
 
 class AcompanhanteRSVP(models.Model):

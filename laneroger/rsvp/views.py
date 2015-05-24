@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import ConvidadoRSVP, AcompanhanteRSVP
@@ -45,9 +44,7 @@ class ConfirmacaoHomeView(FormView):
                 convidado, _ = ConvidadoRSVP.objects.get_or_create(
                     fone=fone)
 
-        url = reverse('rsvp.confirmacao.update',
-                      kwargs={'pk': convidado.id})
-        return HttpResponseRedirect(url)
+        return HttpResponseRedirect(convidado.get_absolute_url())
 
 
 class ConfirmacaoUpdateView(UpdateView):
@@ -68,9 +65,7 @@ class ConfirmacaoUpdateView(UpdateView):
         self.object.email = self.object.email.lower()
         self.object.save()
         if primeiro_acesso:
-            url = reverse('rsvp.confirmacao.update',
-                          kwargs={'pk': self.object.id})
-            return HttpResponseRedirect(url)
+            return HttpResponseRedirect(self.object.get_absolute_url())
         return super(ConfirmacaoUpdateView, self).form_valid(form)
 
 
@@ -84,9 +79,8 @@ class ConfirmacaoAcompanhanteCreateView(CreateView):
         self.object = form.save(commit=False)
         self.object.convidado_rsvp = convidado
         self.object.save()
-        url = reverse('rsvp.confirmacao.update',
-                      kwargs={'pk': convidado.id})
-        return HttpResponseRedirect(url)
+        return HttpResponseRedirect(
+            self.object.convidado_rsvp.get_absolute_url())
 
 
 class ConfirmacaoAcompanhanteDeleteView(DeleteView):
@@ -96,6 +90,4 @@ class ConfirmacaoAcompanhanteDeleteView(DeleteView):
     def get_success_url(self):
         convidado = get_object_or_404(ConvidadoRSVP,
                                       pk=self.kwargs['convidado_pk'])
-        url = reverse('rsvp.confirmacao.update',
-                      kwargs={'pk': convidado.id})
-        return url
+        return convidado.get_absolute_url()
