@@ -17,7 +17,7 @@ class ConfirmacaoHomeForm(forms.Form):
         label=_("Telefone"), required=True)
     email = forms.EmailField(
         widget=EmailInput(attrs={'placeholder': 'Ex: camargo@gmail.com'}),
-        label=_("E-mail"), required=False)
+        label=_("E-mail (opcional)"), required=False)
 
     def __init__(self, *args, **kwargs):
         super(ConfirmacaoHomeForm, self).__init__(*args, **kwargs)
@@ -34,6 +34,9 @@ class ConvidadoRSVPForm(forms.ModelForm):
     class Meta:
         model = ConvidadoRSVP
         fields = ('nome_completo', 'rsvp', 'fone', 'email',)
+        help_texts = {
+            'email': 'Informe um email para enviarmos detalhes da localização',
+        }
 
 
 class AcompanhanteRSVPForm(forms.ModelForm):

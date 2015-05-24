@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import ConvidadoRSVP, AcompanhanteRSVP
 from .forms import ConfirmacaoHomeForm, ConvidadoRSVPForm, AcompanhanteRSVPForm
+from .validators import phone_validator
 
 
 class ConfirmacaoHomeView(FormView):
@@ -19,6 +20,9 @@ class ConfirmacaoHomeView(FormView):
     def form_valid(self, form):
         fone, email = (form['fone'].data,
                        form['email'].data)
+
+        fone = phone_validator(fone)
+        email = email.lower()
 
         if email and fone:
             convidado = ConvidadoRSVP.objects.filter(email=email.lower(),
@@ -36,7 +40,7 @@ class ConfirmacaoHomeView(FormView):
         else:
             if email and fone:
                 convidado, _ = ConvidadoRSVP.objects.get_or_create(
-                    email=email.lower(), fone=fone)
+                    email=email, fone=fone)
             else:
                 convidado, _ = ConvidadoRSVP.objects.get_or_create(
                     fone=fone)
@@ -60,6 +64,8 @@ class ConfirmacaoUpdateView(UpdateView):
         primeiro_acesso = self.object.eh_primeiro_acesso
         self.object = form.save(commit=False)
         self.object.eh_primeiro_acesso = False
+        self.object.fone = phone_validator(self.object.fone)
+        self.object.email = self.object.email.lower()
         self.object.save()
         if primeiro_acesso:
             url = reverse('rsvp.confirmacao.update',
