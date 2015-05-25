@@ -8,10 +8,12 @@ from .views import ShowHomeView, SaveTheDateView, ConfirmacaoRedirectView
 
 urlpatterns = patterns('',  # noqa
 
+    url(r'^confirmacao/$', ConfirmacaoRedirectView.as_view(),
+        name='core.confirmacao'),
+    url(r'^confirmacao$',
+        ConfirmacaoRedirectView.as_view(),),
     url(r'^$', ShowHomeView.as_view(),
         name='core.showhome'),
-    url(r'^confirmacao$', ConfirmacaoRedirectView.as_view(),
-        name='core.confirmacao'),
     url(r'^save-the-date/$',
         SaveTheDateView.as_view(), name='core.savethedate'),
 
