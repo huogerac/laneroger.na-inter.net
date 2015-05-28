@@ -314,10 +314,12 @@
           "{% static 'themes/default/img/background/1.jpg' %}"
         ]);
 
-        new WOW({
-          mobile: false
-        }).init();
-        
+        //new WOW({
+        //  mobile: false
+        //}).init();
+        if(Modernizr.cssanimations) {
+             new WOW().init();
+        }
         
         /* ---------------------------------------------------------
          * Team carousel

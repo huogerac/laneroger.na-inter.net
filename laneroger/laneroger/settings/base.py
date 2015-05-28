@@ -160,7 +160,7 @@ LOCAL_APPS = (
 
 BOWER_INSTALLED_APPS = (
     'bootstrap#3.2.0',
-    'jquery#2.1.2',
+    'jquery#1.11.3',
     'font-awesome-bower#4.2.0',
     'classie#1.0.1',
     'modernizr#~2.8.3',
