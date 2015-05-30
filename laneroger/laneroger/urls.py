@@ -12,6 +12,7 @@ urlpatterns = patterns('',  # noqa
     url(r'^ckeditor/', include('ckeditor.urls')),
 
     url(r'^rsvp/', include('rsvp.urls')),
+    url(r'^lista/', include('listapresentes.urls')),
 
     url(r'^', include('core.urls')),
 

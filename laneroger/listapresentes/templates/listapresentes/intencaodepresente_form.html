@@ -1,0 +1,67 @@
+{% extends 'listapresentes/base_listapresentes.html' %}
+
+{% load static %}
+{% load floppyforms %}
+
+{% block extrajs_top %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+
+  <!-- Main -->
+  <section class="main text-center" id="home" style="height: 26px;">
+    <div class="page">
+      <div class="wrapper">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xs-5">
+          <h1>Comprar presente para Elaine & Roger</h1>
+          <p>Assim que você confirmar suas informações, iremos te informar nossa conta bancária para transferência.
+          </p>
+          <p>Assim iremos utilizar esse valor para comprar o seu presente!</p>
+          <p>Obrigado.</p>
+
+        </div>
+        <div class="col-xs-7">
+
+          <form method='post' enctype="multipart/form-data">{% csrf_token %}
+
+            {{ form }}
+
+            <button type="submit" class="btn btn-warning btn-lg">
+              <i class="fa fa-thumbs-o-up"></i> CONFIRMAR
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block extrajs_bottom %}
+    <script type="text/javascript">
+
+      $(window).load(function () {
+        "use strict";
+        $('body').delay(350).css({
+          'overflow': 'visible'
+        });
+
+      });
+
+      $( "#id_nome" ).focus();
+
+    </script>
+{% endblock extrajs_bottom %}
