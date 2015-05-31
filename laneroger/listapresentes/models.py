@@ -23,7 +23,7 @@ class Presente(models.Model):
 
     class Meta:
         verbose_name = _("Presente")
-        ordering = ('descricao', )
+        ordering = ('valor', )
 
     def __str__(self):
         return "{0} (R${1})".format(self.titulo, self.valor)
