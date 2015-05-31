@@ -51,6 +51,11 @@
             </h3>
             <p><small>{{ presente.titulo }}</small></p>
           </div>
+
+          {% if forloop.counter|divisibleby:3 %}
+            <div class="clearfix visible-lg-block"></div>
+          {% endif %}
+
         {% endfor %}
       </div>
 
