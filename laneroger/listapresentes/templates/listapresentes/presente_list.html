@@ -49,7 +49,7 @@
               <span style="font-size: 20px;">R$</span><strong>{{ presente.valor }}</strong>
               <a href="{% url 'listapresentes.intencao.create' presente.id %}" class="btn btn-success"><i class="fa fa-gift"></i> Comprar presente</a>
             </h3>
-            <p><small>{{ presente.titulo }}</small></p>
+            <p><small>{{ presente.descricao }}</small></p>
           </div>
 
           {% if forloop.counter|divisibleby:3 %}
