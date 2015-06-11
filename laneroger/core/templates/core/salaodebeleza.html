@@ -1,0 +1,53 @@
+{% extends 'core/base_core.html' %}
+
+{% load static %}
+{% load floppyforms %}
+
+{% block content %}
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="section-title">Salão de Beleza em SJC</h3>
+          <div class="section-title-border"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h2><strong>Favor ver as opções (próximas a Capela) diretamente no mapa...</strong></h2>
+          <h3>Em breve mais informações/preços</h3>
+          <h4><strong><a target="_blank" href="https://www.google.com.br/maps/search/salao+de+beleza/@-23.1931272,-45.8986698,17z/data=!3m1!4b1!4m8!2m7!3m6!1ssalao+de+beleza!2sPra%C3%A7a+Nossa+Sra.+de+F%C3%A1tima,+2+-+Jardim+Nova+America,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12242-271!3s0x94cc4a0c0d66f931:0x28240b134d3269db!4m2!1d-45.8986514!2d-23.1931264?hl=en"><i class="fa fa-map-marker"></i> Ver mapa</a></strong>
+          </h4>
+          <p><br/></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <center>
+            <p><br/></p>
+            <p>
+              <a class="btn btn-default btn-lg" href="{% url 'core.showhome' %}">Ir para página principal</a>  
+              <a class="btn btn-warning btn-lg" href="{% url 'core.dicasdehoteis' %}">Dicas de hoteis</a>
+            </p>
+          </center>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+{% block extrajs_bottom %}
+    <script type="text/javascript">
+
+      $(window).load(function () {
+        "use strict";
+        $('body').delay(350).css({
+          'overflow': 'visible'
+        });
+      });
+
+    </script>
+{% endblock extrajs_bottom %}

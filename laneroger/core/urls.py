@@ -28,4 +28,9 @@ urlpatterns = patterns('',  # noqa
         TemplateView.as_view(template_name="core/cerimoniareligiosa.html"),
         name='core.cerimoniareligiosa'),
 
+    url(r'^salaodebeleza/$',
+        TemplateView.as_view(template_name="core/salaodebeleza.html"),
+        name='core.salaodebeleza'),
+
+
 )
