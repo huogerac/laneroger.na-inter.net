@@ -3,11 +3,13 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
+from django.core.mail import send_mail
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
+from django.utils import timezone
 
 from braces import views
 
@@ -71,8 +73,18 @@ class ConfirmacaoUpdateView(UpdateView):
         self.object.eh_primeiro_acesso = False
         self.object.fone = phone_validator(self.object.fone)
         self.object.email = self.object.email.lower()
+        self.object.data = timezone.now()
+        self.object.contabilizado = False
         self.object.save()
-        if primeiro_acesso:
+
+        if not primeiro_acesso:
+            email_body = 'RSVP de {0} atualizado para {1}.'.format(
+                self.object.nome_completo, self.object.rsvp)
+            send_mail('Elaine & Roger', email_body,
+                      'roger@na-inter.net',
+                      ['huogerac@gmail.com', 'lan.galvao@gmail.com'],
+                      fail_silently=False)
+        else:
             return HttpResponseRedirect(self.object.get_absolute_url())
         return super(ConfirmacaoUpdateView, self).form_valid(form)
 
@@ -110,7 +122,7 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
     def get_context_data(self, **kwargs):
         context = super(ListaConvidadosListView,
                         self).get_context_data(**kwargs)
-        context['rsvp_convidado'] = ConvidadoRSVP.objects.all().order_by('-id')
+        context['rsvp_convidado'] = ConvidadoRSVP.objects.all().order_by('-data')
         for grupo, descricao in Convidado.GRUPOS:
             total_convidados = Convidado.objects.filter(
                 grupo=grupo).count()
