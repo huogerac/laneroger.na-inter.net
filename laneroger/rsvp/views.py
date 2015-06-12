@@ -2,12 +2,19 @@
 from __future__ import unicode_literals
 
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
+from django.utils.text import slugify
 
-from .models import ConvidadoRSVP, AcompanhanteRSVP
-from .forms import ConfirmacaoHomeForm, ConvidadoRSVPForm, AcompanhanteRSVPForm
+from braces import views
+
+from .models import ConvidadoRSVP, AcompanhanteRSVP, Convidado, Acompanhante, RSVP
+from .forms import (ConfirmacaoHomeForm, ConvidadoRSVPForm,
+                    AcompanhanteRSVPForm, ListaConvidadoRSVPForm,
+                    ListaConvidadoForm, ListaAcompanhanteForm, )
 from .validators import phone_validator
 
 
@@ -91,3 +98,73 @@ class ConfirmacaoAcompanhanteDeleteView(DeleteView):
         convidado = get_object_or_404(ConvidadoRSVP,
                                       pk=self.kwargs['convidado_pk'])
         return convidado.get_absolute_url()
+
+
+class ListaConvidadosListView(views.LoginRequiredMixin,
+                              views.StaffuserRequiredMixin, ListView):
+    model = Convidado
+    paginate_by = '140'
+    context_object_name = 'imoveis_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListaConvidadosListView,
+                        self).get_context_data(**kwargs)
+        context['rsvp_convidado'] = ConvidadoRSVP.objects.all().order_by('-id')
+        for grupo in ['Noivo.ParteDaMae',
+                      'Noivo.ParteDoPai',
+                      'Noivo.Amigos']:
+            total_convidados = Convidado.objects.filter(
+                grupo=grupo).count()
+            total_acompanhantes = Acompanhante.objects.filter(
+                convidado__grupo=grupo).count()
+            grupo_str = slugify(grupo)
+            semrsvp_convidados = Convidado.objects.filter(
+                grupo=grupo, rsvp=RSVP.vazio).count()
+            semrsvp_acompanhantes = Acompanhante.objects.filter(
+                convidado__grupo=grupo, rsvp=RSVP.vazio).count()
+            semrsvp = 100
+            total = (total_convidados + total_acompanhantes)
+            if total > 0:
+                semrsvp = (semrsvp_convidados + semrsvp_acompanhantes) * 100 / total
+            context["semrsvp_{0}".format(grupo_str)] = semrsvp
+
+        confirmado_noivo = Convidado.objects.filter(
+                grupo__icontains="Noivo", rsvp=RSVP.sim).count()
+        confirmado_noivo += Acompanhante.objects.filter(
+                convidado__grupo__icontains="Noivo", rsvp=RSVP.sim).count()
+        context["confirmado_noivo"] = confirmado_noivo
+
+        confirmado_noiva = Convidado.objects.filter(
+                grupo__icontains="Noiva", rsvp=RSVP.sim).count()
+        confirmado_noiva += Acompanhante.objects.filter(
+                convidado__grupo__icontains="Noiva", rsvp=RSVP.sim).count()
+        context["confirmado_noiva"] = confirmado_noiva
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = Convidado.objects.all()
+        return queryset.order_by('grupo', 'nome_completo')
+
+
+class ConvidadoRSVPUpdateView(views.LoginRequiredMixin,
+                              views.StaffuserRequiredMixin, UpdateView):
+    model = ConvidadoRSVP
+    form_class = ListaConvidadoRSVPForm
+    success_url = reverse_lazy('rsvp.lista.convidados.list')
+    template_name = "rsvp/convidado_form.html"
+
+
+class ConvidadoUpdateView(views.LoginRequiredMixin,
+                          views.StaffuserRequiredMixin, UpdateView):
+    model = Convidado
+    form_class = ListaConvidadoForm
+    success_url = reverse_lazy('rsvp.lista.convidados.list')
+    template_name = "rsvp/convidado_form.html"
+
+
+class AcompanhanteUpdateView(views.LoginRequiredMixin,
+                             views.StaffuserRequiredMixin, UpdateView):
+    model = Acompanhante
+    form_class = ListaAcompanhanteForm
+    success_url = reverse_lazy('rsvp.lista.convidados.list')
+    template_name = "rsvp/convidado_form.html"

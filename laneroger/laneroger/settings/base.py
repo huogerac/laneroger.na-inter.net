@@ -186,6 +186,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+LOGIN_URL = '/admin/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

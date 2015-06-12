@@ -1,0 +1,182 @@
+{% extends 'rsvp/base_rsvp.html' %}
+
+{% load static %}
+
+{% block content %}
+
+  <!-- Main -->
+  <section class="main text-center" id="home" style="height: 26px;">
+    <div class="page">
+      <div class="wrapper">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-5">
+          <center>
+            <p><small>Todo mundo que confirma através do site gera um item aqui neste lado</small></p>
+            <i class="fa fa-arrow-down"></i>
+          </center>
+          <h2>Entradas de RSVP <small>(via site/fone)</small></h2>
+          <hr class="small">
+
+          <table class="table table-condensed table-hover">
+            <tbody>
+            {% for convidado in rsvp_convidado %}
+              <tr {% if not convidado.contabilizado %}class="danger"{% endif %}>
+                <td>
+                  {% if not convidado.contabilizado %}
+                   <strong><i class="fa fa-arrow-circle-right"></i></strong>
+                  {% endif %}
+                </td>
+                <td>{{ convidado.rsvp }}</td>
+                <td>
+                  <a href="{% url 'rsvp.convidadorsvp.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                  <br/>
+                  {% for acompanhante in convidado.acompanhate_list %}
+                    &nbsp&nbsp&nbsp <small>{{ acompanhante.nome }} ({{ acompanhante.tipo }})</small><br/>
+                  {% endfor %}
+                </td>
+                <td><small>{{ convidado.data|timesince }}</small></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-sm-7">
+          <center>
+            <p><small>Aqui é a lista final atualizada manualmente conforme os convidados ligam ou entram na coluna a esquerda</small></p>
+            <i class="fa fa-arrow-down"></i>
+          </center>
+          <h2>RSVP Final</h2>
+
+          {% regroup object_list by grupo as grupos %}
+          
+          {% for grupo in grupos %}
+
+            <h3>{{ grupo.grouper }}</h3>
+            <hr class="small">
+
+            <table class="table table-condensed table-hover">
+              <tbody>
+              {% for convidado in grupo.list %}
+                <tr {% if convidado.confirmado %}
+                      class="success"
+                    {% elif convidado.nao_confirmado %}
+                      class="danger"
+                    {% endif %}>
+                  <td>
+                    {% if convidado.confirmado %}
+                      <i class="fa fa-check-circle"></i>
+                    {% elif convidado.nao_confirmado %}
+                      <i class="fa fa-times"></i>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{% url 'rsvp.convidado.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                    {% for acompanhante in convidado.acompanhate_list %}
+                    <tr{% if acompanhante.confirmado %}
+                         class="success"
+                       {% elif acompanhante.nao_confirmado %}
+                         class="danger"
+                       {% endif %}>
+                      <td>
+                        {% if acompanhante.confirmado %}
+                          <i class="fa fa-check-circle"></i>
+                        {% elif acompanhante.nao_confirmado %}
+                          <i class="fa fa-times"></i>
+                        {% endif %}
+                      </td>
+                      <td>&nbsp&nbsp&nbsp <small>
+                      <a href="{% url 'rsvp.acompanhante.update' acompanhante.id %}">{{ acompanhante.nome }} <i class="fa fa-pencil"></i> </a>
+                      ({{ acompanhante.tipo_verbose }})</small>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
+          {% endfor %}
+
+          <h1>Resumo</h1>
+          <h2>Sem RSVP</h2>
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td class="col-xs-3">Noivo Parte da Mãe</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{ semrsvp_noivopartedamae }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ semrsvp_noivopartedamae }}%">
+                    </div>
+                  </div>
+                </td>
+                <td class="col-xs-1">{{ semrsvp_noivopartedamae }}%</td>
+              </tr>
+              <tr>
+                <td class="col-xs-3">Noivo Parte de Pai</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{ semrsvp_noivopartedopai }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ semrsvp_noivopartedopai }}%">
+                    </div>
+                  </div>
+                </td>
+                <td class="col-xs-1">{{ semrsvp_noivopartedopai }}%</td>
+              </tr>
+              <tr>
+                <td class="col-xs-3">Noivo Amigos</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{ semrsvp_noivoamigos }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ semrsvp_noivoamigos }}%">
+                    </div>
+                  </div>
+                </td>
+                <td class="col-xs-1">{{ semrsvp_noivoamigos }}%</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>RSVP Confirmados</h2>
+          
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td>Noivo</td>
+                <td>{{ confirmado_noivo }}</td>
+              </tr>
+              <tr>
+                <td>Noiva</td>
+                <td>{{ confirmado_noiva }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        
+
+
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block extrajs_bottom %}
+    <script type="text/javascript">
+
+      $(window).load(function () {
+        "use strict";
+        $('body').delay(350).css({
+          'overflow': 'visible'
+        });
+      });
+
+    </script>
+{% endblock extrajs_bottom %}

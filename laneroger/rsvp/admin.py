@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
-from .models import ConvidadoRSVP, AcompanhanteRSVP
+from .models import ConvidadoRSVP, AcompanhanteRSVP, Convidado, Acompanhante
 
 
 class AcompanhanteRSVPInline(admin.TabularInline):
@@ -17,3 +17,15 @@ class ConvidadoRSVPAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(ConvidadoRSVP, ConvidadoRSVPAdmin)
+
+
+class AcompanhanteInline(admin.TabularInline):
+    model = Acompanhante
+
+
+class ConvidadoAdmin(admin.ModelAdmin):
+    inlines = [
+        AcompanhanteInline,
+    ]
+
+admin.site.register(Convidado, ConvidadoAdmin)
