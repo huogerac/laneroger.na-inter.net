@@ -11,7 +11,8 @@ from django.utils.text import slugify
 
 from braces import views
 
-from .models import ConvidadoRSVP, AcompanhanteRSVP, Convidado, Acompanhante, RSVP
+from .models import (ConvidadoRSVP, AcompanhanteRSVP,
+                     Convidado, Acompanhante, RSVP, )
 from .forms import (ConfirmacaoHomeForm, ConvidadoRSVPForm,
                     AcompanhanteRSVPForm, ListaConvidadoRSVPForm,
                     ListaConvidadoForm, ListaAcompanhanteForm, )
@@ -110,9 +111,7 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
         context = super(ListaConvidadosListView,
                         self).get_context_data(**kwargs)
         context['rsvp_convidado'] = ConvidadoRSVP.objects.all().order_by('-id')
-        for grupo in ['Noivo.ParteDaMae',
-                      'Noivo.ParteDoPai',
-                      'Noivo.Amigos']:
+        for grupo, descricao in Convidado.GRUPOS:
             total_convidados = Convidado.objects.filter(
                 grupo=grupo).count()
             total_acompanhantes = Acompanhante.objects.filter(
@@ -143,7 +142,7 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
 
     def get_queryset(self, **kwargs):
         queryset = Convidado.objects.all()
-        return queryset.order_by('grupo', 'nome_completo')
+        return queryset.order_by('-grupo', 'nome_completo')
 
 
 class ConvidadoRSVPUpdateView(views.LoginRequiredMixin,

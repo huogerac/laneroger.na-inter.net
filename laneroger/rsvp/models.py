@@ -69,7 +69,14 @@ class AcompanhanteRSVP(models.Model):
 
 
 class Convidado(models.Model):
-    grupo = models.CharField('Grupo', default='geral', max_length=32)
+    GRUPOS = Choices(('Noivo.ParteDaMae', _('Noivo - Parte da Mãe')),
+                     ('Noivo.ParteDoPai', _('Noivo - Parte do Pai')),
+                     ('Noivo.Amigos', _('Noivo - Amigos')),
+                     ('Noiva.ParteDaMae', _('Noiva - Parte da Mãe')),
+                     ('Noiva.ParteDoPai', _('Noiva - Parte do Pai')),
+                     ('Noiva.Amigos', _('Noiva - Amigos')), )
+    grupo = models.CharField('Grupo', default='geral', max_length=32,
+                             choices=GRUPOS)
     data = models.DateTimeField(_('data'), auto_now_add=True)
     rsvp = models.CharField('Confirma presença?',
                             choices=RSVP, default=RSVP.vazio,
