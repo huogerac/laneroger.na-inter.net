@@ -12,7 +12,7 @@ from django.utils.text import slugify
 from braces import views
 
 from .models import (ConvidadoRSVP, AcompanhanteRSVP,
-                     Convidado, Acompanhante, RSVP, )
+                     Convidado, Acompanhante, RSVP, TIPO_ACOMPANHANTE, )
 from .forms import (ConfirmacaoHomeForm, ConvidadoRSVPForm,
                     AcompanhanteRSVPForm, ListaConvidadoRSVPForm,
                     ListaConvidadoForm, ListaAcompanhanteForm, )
@@ -130,13 +130,15 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
         confirmado_noivo = Convidado.objects.filter(
                 grupo__icontains="Noivo", rsvp=RSVP.sim).count()
         confirmado_noivo += Acompanhante.objects.filter(
-                convidado__grupo__icontains="Noivo", rsvp=RSVP.sim).count()
+                convidado__grupo__icontains="Noivo",
+                rsvp=RSVP.sim, tipo=TIPO_ACOMPANHANTE.adulto).count()
         context["confirmado_noivo"] = confirmado_noivo
 
         confirmado_noiva = Convidado.objects.filter(
                 grupo__icontains="Noiva", rsvp=RSVP.sim).count()
         confirmado_noiva += Acompanhante.objects.filter(
-                convidado__grupo__icontains="Noiva", rsvp=RSVP.sim).count()
+                convidado__grupo__icontains="Noiva",
+                rsvp=RSVP.sim, tipo=TIPO_ACOMPANHANTE.adulto).count()
         context["confirmado_noiva"] = confirmado_noiva
         return context
 
