@@ -26,7 +26,7 @@ SITE_NAME = basename(BASE_DIR)
 path.append(BASE_DIR)
 
 ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+    ('Roger', 'huogerac@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -150,6 +150,7 @@ THIRD_PARTY_APPS = (
     'floppyforms',                    # django-floppyforms
     'django_extensions',              # django-extensions
     'ckeditor',                       # django-ckeditor-updated
+    'djrill',                         # djrill email integration
 )
 
 LOCAL_APPS = (
