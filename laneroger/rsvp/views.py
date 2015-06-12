@@ -80,7 +80,7 @@ class ConfirmacaoUpdateView(UpdateView):
         if not primeiro_acesso:
             email_body = 'RSVP de {0} atualizado para {1}.'.format(
                 self.object.nome_completo, self.object.rsvp)
-            send_mail('Elaine & Roger', email_body,
+            send_mail('Elaine & Roger - RSVP', email_body,
                       'roger@na-inter.net',
                       ['huogerac@gmail.com', 'lan.galvao@gmail.com'],
                       fail_silently=False)

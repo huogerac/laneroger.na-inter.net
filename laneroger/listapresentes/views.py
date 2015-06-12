@@ -8,6 +8,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 
 from .models import Presente, IntencaoDePresente
@@ -38,6 +39,14 @@ class IntencaoDePresenteCreateView(CreateView):
         self.object.save()
         url = reverse("listapresentes.intencao.confirmacao",
                       kwargs={'pk': self.object.id})
+        email_body = '{0} teve uma intenção de presente {1} ({2}, {3})'.format(
+            self.object.nome, self.object.presente, self.object.valor, self.object.banco)
+
+        send_mail('Elaine & Roger - PRESENTE', email_body,
+                  'roger@na-inter.net',
+                  ['huogerac@gmail.com', 'lan.galvao@gmail.com'],
+                  fail_silently=False)
+
         return HttpResponseRedirect(url)
 
 
