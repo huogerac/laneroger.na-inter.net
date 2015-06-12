@@ -7,7 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 import floppyforms.__future__ as forms
 from floppyforms.widgets import EmailInput, TextInput
 
-from .models import ConvidadoRSVP, AcompanhanteRSVP, Convidado, Acompanhante
+from .models import (ConvidadoRSVP, AcompanhanteRSVP, Convidado,
+                     Acompanhante, RSVP, )
 from .validators import phone_validator
 
 
@@ -40,7 +41,7 @@ class ConvidadoRSVPForm(forms.ModelForm):
         }
 
     def clean_rsvp(self):
-        if self.cleaned_data['rsvp'] == ConvidadoRSVP.RSVP.vazio:
+        if self.cleaned_data['rsvp'] == RSVP.vazio:
             raise forms.ValidationError('Responda aqui!!!')
         return self.cleaned_data['rsvp']
 
