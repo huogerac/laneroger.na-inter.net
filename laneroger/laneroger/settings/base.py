@@ -158,6 +158,7 @@ LOCAL_APPS = (
     'themes',
     'rsvp',
     'listapresentes',
+    'fornecedores',
 )
 
 BOWER_INSTALLED_APPS = (

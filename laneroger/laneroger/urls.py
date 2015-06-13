@@ -13,6 +13,7 @@ urlpatterns = patterns('',  # noqa
 
     url(r'^rsvp/', include('rsvp.urls')),
     url(r'^lista/', include('listapresentes.urls')),
+    url(r'^fornecedores/', include('fornecedores.urls')),
 
     url(r'^', include('core.urls')),
 
