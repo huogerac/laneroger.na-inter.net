@@ -2,14 +2,13 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
-
-from .views import (FornecedoresListView, )
+from django.views.generic import TemplateView
 
 
 urlpatterns = patterns('',  # noqa
 
     url(r'^$',
-        FornecedoresListView.as_view(),
-        name='fornecedores.lista'),
+        TemplateView.as_view(template_name="roteiros/lista.html"),
+        name='roteiros.lista'),
 
 )
