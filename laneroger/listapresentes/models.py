@@ -44,6 +44,10 @@ class IntencaoDePresente(models.Model):
         _('Mensagem para o casal'), blank=True, default='')
     valor = models.DecimalField(
         _('Valor'), max_digits=12, decimal_places=2, default=0.00)
+    pagamento_ok = models.BooleanField(default=False)
+    saque_ok = models.BooleanField(default=False)
+    agradecimento_ok = models.BooleanField(default=False)
+    foto_agradecimento_ok = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Intenção de Presente")
