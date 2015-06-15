@@ -54,7 +54,7 @@ class IntencaoDePresente(models.Model):
         ordering = ('-id', )
 
     def __str__(self):
-        return self.nome
+        return "{0} ({1},{2})".format(self.nome, self.valor, self.banco)
 
     @property
     def centavos(self):
