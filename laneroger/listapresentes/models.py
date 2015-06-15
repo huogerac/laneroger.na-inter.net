@@ -55,7 +55,7 @@ class IntencaoDePresente(models.Model):
 
     def __str__(self):
         ok = "OK" if self.pagamento_ok else ""
-        return "{0} ({1},{2}) - ".format(
+        return "{0} ({1},{2}) - {3}".format(
             self.nome, self.valor, self.banco, ok)
 
     @property
