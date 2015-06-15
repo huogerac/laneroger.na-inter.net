@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from django.contrib.auth import views as auth_views
 
 from .views import ShowHomeView, SaveTheDateView, ConfirmacaoRedirectView
+from .forms import LoginForm
 
 
 urlpatterns = patterns('',  # noqa
@@ -40,5 +42,10 @@ urlpatterns = patterns('',  # noqa
         TemplateView.as_view(template_name="core/salaodebeleza.html"),
         name='core.salaodebeleza'),
 
+    # login
+    url(r'^auth/$',
+        auth_views.login, {'template_name': 'core/login.html',
+                           'authentication_form': LoginForm},
+        name='url_login_auth'),
 
 )

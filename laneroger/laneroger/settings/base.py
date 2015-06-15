@@ -189,7 +189,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = '/auth/'
 
 LOGGING = {
     'version': 1,
