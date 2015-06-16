@@ -42,6 +42,10 @@ urlpatterns = patterns('',  # noqa
         TemplateView.as_view(template_name="core/salaodebeleza.html"),
         name='core.salaodebeleza'),
 
+    url(r'^avisoconfirmacao/$',
+        TemplateView.as_view(template_name="core/avisoconfirmacao.html"),
+        name='core.avisoconfirmacao'),
+
     # login
     url(r'^auth/$',
         auth_views.login, {'template_name': 'core/login.html',
