@@ -127,12 +127,13 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
             total_convidados = Convidado.objects.filter(
                 grupo=grupo).count()
             total_acompanhantes = Acompanhante.objects.filter(
-                convidado__grupo=grupo).count()
+                convidado__grupo=grupo, tipo=TIPO_ACOMPANHANTE.adulto).count()
             grupo_str = slugify(grupo)
             semrsvp_convidados = Convidado.objects.filter(
                 grupo=grupo, rsvp=RSVP.vazio).count()
             semrsvp_acompanhantes = Acompanhante.objects.filter(
-                convidado__grupo=grupo, rsvp=RSVP.vazio).count()
+                convidado__grupo=grupo, rsvp=RSVP.vazio,
+                tipo=TIPO_ACOMPANHANTE.adulto).count()
             semrsvp = 100
             total = (total_convidados + total_acompanhantes)
             if total > 0:
@@ -152,6 +153,28 @@ class ListaConvidadosListView(views.LoginRequiredMixin,
                 convidado__grupo__icontains="Noiva",
                 rsvp=RSVP.sim, tipo=TIPO_ACOMPANHANTE.adulto).count()
         context["confirmado_noiva"] = confirmado_noiva
+
+        total_convidados = Convidado.objects.all().count()
+        total_convidados += Acompanhante.objects.filter(
+            tipo=TIPO_ACOMPANHANTE.adulto).count()
+        context["total_convidados"] = total_convidados
+
+        sem_rsvp = Convidado.objects.filter(rsvp=RSVP.vazio).count()
+        sem_rsvp += Acompanhante.objects.filter(
+            tipo=TIPO_ACOMPANHANTE.adulto, rsvp=RSVP.vazio).count()
+        context["sem_rsvp"] = sem_rsvp
+
+        rsvp_nao = Convidado.objects.filter(rsvp=RSVP.nao).count()
+        rsvp_nao += Acompanhante.objects.filter(
+            tipo=TIPO_ACOMPANHANTE.adulto, rsvp=RSVP.nao).count()
+        context["rsvp_nao"] = rsvp_nao
+
+        rsvp_sim = Convidado.objects.filter(rsvp=RSVP.sim).count()
+        rsvp_sim += Acompanhante.objects.filter(
+            tipo=TIPO_ACOMPANHANTE.adulto, rsvp=RSVP.sim).count()
+        context["rsvp_sim"] = rsvp_sim
+
+        context["novos"] = ConvidadoRSVP.objects.filter(contabilizado=False)
         return context
 
     def get_queryset(self, **kwargs):

@@ -17,96 +17,66 @@
       <div class="row">
 
         <div class="col-sm-5">
-          <center>
-            <p><small>Todo mundo que confirma através do site gera um item aqui neste lado</small></p>
-            <i class="fa fa-arrow-down"></i>
-          </center>
-          <h2>Entradas de RSVP <small>(via site/fone)</small></h2>
-          <hr class="small">
+          <span id="show-novos-rsvp" class="btn btn-default btn-lg">Entradas de RSVP</span>
+          {% if novos %}
+          <span class="badge">{{ novos|length }}</span>
+          {% endif %}
 
-          <table class="table table-condensed table-hover">
-            <tbody>
-            {% for convidado in rsvp_convidado %}
-              <tr {% if not convidado.contabilizado %}class="danger"{% endif %}>
-                <td>
-                  {% if not convidado.contabilizado %}
-                   <strong><i class="fa fa-arrow-circle-right"></i></strong>
-                  {% endif %}
-                </td>
-                <td>{{ convidado.rsvp }}</td>
-                <td>
-                  <a href="{% url 'rsvp.convidadorsvp.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
-                  <br/>
-                  {% for acompanhante in convidado.acompanhate_list %}
-                    &nbsp&nbsp&nbsp <small>{{ acompanhante.nome }} ({{ acompanhante.tipo }})</small><br/>
-                  {% endfor %}
-                </td>
-                <td><small>{{ convidado.data|timesince }}</small></td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-        <div class="col-sm-7">
-          <center>
-            <p><small>Aqui é a lista final atualizada manualmente conforme os convidados ligam ou entram na coluna a esquerda</small></p>
-            <i class="fa fa-arrow-down"></i>
-          </center>
-          <h2>RSVP Final</h2>
-
-          {% regroup object_list by grupo as grupos %}
-          
-          {% for grupo in grupos %}
-
-            <h3>{{ grupo.grouper }}</h3>
+          <div id="novos-rsvp">
+            <center>
+              <p><small>Todo mundo que confirma através do site gera um item aqui neste lado</small></p>
+              <i class="fa fa-arrow-down"></i>
+            </center>
+            <h2>Entradas de RSVP <small>(via site/fone)</small></h2>
             <hr class="small">
 
             <table class="table table-condensed table-hover">
               <tbody>
-              {% for convidado in grupo.list %}
-                <tr {% if convidado.confirmado %}
-                      class="success"
-                    {% elif convidado.nao_confirmado %}
-                      class="danger"
-                    {% endif %}>
+              {% for convidado in rsvp_convidado %}
+                <tr {% if not convidado.contabilizado %}class="danger"{% endif %}>
                   <td>
-                    {% if convidado.confirmado %}
-                      <i class="fa fa-check-circle"></i>
-                    {% elif convidado.nao_confirmado %}
-                      <i class="fa fa-times"></i>
+                    {% if not convidado.contabilizado %}
+                     <strong><i class="fa fa-arrow-circle-right"></i></strong>
                     {% endif %}
                   </td>
+                  <td>{{ convidado.rsvp }}</td>
                   <td>
-                    <a href="{% url 'rsvp.convidado.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                    <a href="{% url 'rsvp.convidadorsvp.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                    <br/>
                     {% for acompanhante in convidado.acompanhate_list %}
-                    <tr{% if acompanhante.confirmado %}
-                         class="success"
-                       {% elif acompanhante.nao_confirmado %}
-                         class="danger"
-                       {% endif %}>
-                      <td>
-                        {% if acompanhante.confirmado %}
-                          <i class="fa fa-check-circle"></i>
-                        {% elif acompanhante.nao_confirmado %}
-                          <i class="fa fa-times"></i>
-                        {% endif %}
-                      </td>
-                      <td>&nbsp&nbsp&nbsp <small>
-                      <a href="{% url 'rsvp.acompanhante.update' acompanhante.id %}">{{ acompanhante.nome }} <i class="fa fa-pencil"></i> </a>
-                      ({{ acompanhante.tipo_verbose }})</small>
-                      </td>
-                    </tr>
+                      &nbsp&nbsp&nbsp <small>{{ acompanhante.nome }} ({{ acompanhante.tipo }})</small><br/>
                     {% endfor %}
                   </td>
+                  <td><small>{{ convidado.data|timesince }}</small></td>
                 </tr>
               {% endfor %}
               </tbody>
             </table>
-
-          {% endfor %}
+          </div>
 
           <h1>Resumo</h1>
+
+          <h2>RSVP</h2>
+          
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td></td>
+                <td><br/>convidados</td>
+                <td>sem<br/>RSVP</td>
+                <td class="success"><br/>SIM</td>
+                <td class="danger"><br/>NÃO</td>
+              </tr>
+              <tr>
+                <td>Adultos</td>
+                <td>{{ total_convidados }}</td>
+                <td>{{ sem_rsvp }}</td>
+                <td class="success"><strong>{{ rsvp_sim }}</strong></td>
+                <td class="danger">{{ rsvp_nao }}</td>
+              </tr>
+            </tbody>
+          </table>
+
           <h2>Sem RSVP</h2>
           <table class="table table-condensed">
             <tbody>
@@ -175,20 +145,69 @@
 
             </tbody>
           </table>
-          <h2>RSVP Confirmados</h2>
+
+
+        </div>
+
+        <div class="col-sm-7">
+          <center>
+            <p><small>Aqui é a lista final atualizada manualmente conforme os convidados ligam ou entram na coluna a esquerda</small></p>
+            <i class="fa fa-arrow-down"></i>
+          </center>
+          <h2>RSVP Final</h2>
+
+          {% regroup object_list by grupo as grupos %}
           
-          <table class="table table-condensed">
-            <tbody>
-              <tr>
-                <td>Noivo (apenas Adultos)</td>
-                <td><strong>{{ confirmado_noivo }}</strong></td>
-              </tr>
-              <tr>
-                <td>Noiva (apenas Adultos)</td>
-                <td><strong>{{ confirmado_noiva }}</strong></td>
-              </tr>
-            </tbody>
-          </table>
+          {% for grupo in grupos %}
+
+            <h3>{{ grupo.grouper }}</h3>
+            <hr class="small">
+
+            <table class="table table-condensed table-hover">
+              <tbody>
+              {% for convidado in grupo.list %}
+                <tr {% if convidado.confirmado %}
+                      class="success"
+                    {% elif convidado.nao_confirmado %}
+                      class="danger"
+                    {% endif %}>
+                  <td>
+                    {% if convidado.confirmado %}
+                      <i class="fa fa-check-circle"></i>
+                    {% elif convidado.nao_confirmado %}
+                      <i class="fa fa-times"></i>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{% url 'rsvp.convidado.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                    {% for acompanhante in convidado.acompanhate_list %}
+                    <tr{% if acompanhante.confirmado %}
+                         class="success"
+                       {% elif acompanhante.nao_confirmado %}
+                         class="danger"
+                       {% endif %}>
+                      <td>
+                        {% if acompanhante.confirmado %}
+                          <i class="fa fa-check-circle"></i>
+                        {% elif acompanhante.nao_confirmado %}
+                          <i class="fa fa-times"></i>
+                        {% endif %}
+                      </td>
+                      <td>&nbsp&nbsp&nbsp <small>
+                      <a href="{% url 'rsvp.acompanhante.update' acompanhante.id %}">{{ acompanhante.nome }} <i class="fa fa-pencil"></i> </a>
+                      ({{ acompanhante.tipo_verbose }})</small>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
+          {% endfor %}
+
+
         </div>
 
         
@@ -206,6 +225,12 @@
         $('body').delay(350).css({
           'overflow': 'visible'
         });
+      });
+
+      $( "#novos-rsvp" ).hide();
+
+      $( "#show-novos-rsvp" ).click(function () {
+        $( "#novos-rsvp" ).toggle();
       });
 
     </script>
