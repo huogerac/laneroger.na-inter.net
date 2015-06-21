@@ -54,7 +54,9 @@ class IntencaoDePresente(models.Model):
         ordering = ('-id', )
 
     def __str__(self):
-        ok = "OK" if self.pagamento_ok else ""
+        ok = " [OK]" if self.pagamento_ok else " [VER CONTA]"
+        ok += " [sacado] " if self.saque_ok else ""
+        ok += " [agradecido] " if self.saque_ok else ""
         return "{0} ({1},{2}) - {3}".format(
             self.nome, self.valor, self.banco, ok)
 
