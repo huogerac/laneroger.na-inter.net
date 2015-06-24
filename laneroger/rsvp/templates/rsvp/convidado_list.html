@@ -16,7 +16,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <span id="show-novos-rsvp" class="btn btn-default btn-lg">Entradas de RSVP</span>
           {% if novos %}
           <span class="badge">{{ novos|length }}</span>
@@ -76,8 +76,8 @@
               </tr>
             </tbody>
           </table>
-
-          <h2>Sem RSVP</h2>
+          <br/>
+          <h2>Sem RSVP <small>(aguardando resposta)</small> </h2>
           <table class="table table-condensed">
             <tbody>
               <tr>
@@ -148,6 +148,7 @@
 
 
         </div>
+        <div class="col-sm-1"></div>
 
         <div class="col-sm-7">
           <center>
@@ -180,6 +181,10 @@
                   </td>
                   <td>
                     <a href="{% url 'rsvp.convidado.update' convidado.id %}">{{ convidado.nome_completo }} <i class="fa fa-pencil"></i></a>
+                  </td>
+                  <td>{% if convidado.confirmado %}1{% endif %}</td>
+                </tr>
+
                     {% for acompanhante in convidado.acompanhate_list %}
                     <tr{% if acompanhante.confirmado %}
                          class="success"
@@ -197,10 +202,12 @@
                       <a href="{% url 'rsvp.acompanhante.update' acompanhante.id %}">{{ acompanhante.nome }} <i class="fa fa-pencil"></i> </a>
                       ({{ acompanhante.tipo_verbose }})</small>
                       </td>
+                      <td>
+                        {% if acompanhante.confirmado and acompanhante.adulto %}1{% endif %}
+                      </td>
                     </tr>
                     {% endfor %}
-                  </td>
-                </tr>
+
               {% endfor %}
               </tbody>
             </table>

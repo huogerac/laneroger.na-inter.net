@@ -139,3 +139,7 @@ class Acompanhante(models.Model):
     @property
     def nao_confirmado(self):
         return self.rsvp == RSVP.nao
+
+    @property
+    def adulto(self):
+        return self.tipo == TIPO_ACOMPANHANTE.adulto
