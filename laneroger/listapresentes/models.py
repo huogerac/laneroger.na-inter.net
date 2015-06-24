@@ -51,7 +51,8 @@ class IntencaoDePresente(models.Model):
 
     class Meta:
         verbose_name = _("Intenção de Presente")
-        ordering = ('banco', '-pagamento_ok', '-id', )
+        ordering = ('pagamento_ok', 'banco', 'saque_ok',
+                    'agradecimento_ok', '-id', )
 
     def __str__(self):
         ok = " [OK]" if self.pagamento_ok else " --> [VER CONTA]"
