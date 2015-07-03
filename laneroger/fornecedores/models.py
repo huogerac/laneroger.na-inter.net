@@ -28,6 +28,8 @@ class Fornecedor(models.Model):
         _('Site'), max_length=256, blank=True)
     notas = models.TextField(
         _('Notas'), blank=True, default='')
+    endereco = models.TextField(
+        _('Endereço'), blank=True, default='')
 
     class Meta:
         verbose_name = _("Fornecedor")

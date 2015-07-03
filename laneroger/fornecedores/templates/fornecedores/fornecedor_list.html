@@ -16,6 +16,15 @@
       <div class="row">
         <div class="col-sm-12">
           <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>Fornecedor</th>
+                <th></th>
+                <th>Contato</th>
+                <th>Endereço</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
             <tbody>
             {% for fornecedor in object_list %}
               <tr>
@@ -28,6 +37,7 @@
                     {{ fornecedor.fone }} {{ fornecedor.fone2 }}
                     <br/>
                 </td>
+                <td><small>{{ fornecedor.endereco }}</small></td>
                 <td>
                   <small>{{ fornecedor.notas }}</small>
                 </td>
