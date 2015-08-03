@@ -34,6 +34,10 @@ urlpatterns = patterns('',  # noqa
         TemplateView.as_view(template_name="core/agradecimento_presente.html"),
         name='core.agradecimentopresente'),
 
+    url(r'^amigos/$',
+        TemplateView.as_view(template_name="core/amigos.html"),
+        name='core.amigos'),
+
     url(r'^cerimoniareligiosa/$',
         TemplateView.as_view(template_name="core/cerimoniareligiosa.html"),
         name='core.cerimoniareligiosa'),
