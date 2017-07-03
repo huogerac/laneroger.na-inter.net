@@ -25,7 +25,7 @@
 
             <i class="fa fa-heart" style="font-size: 56px" ></i>
             <h1 class="heading">Elaine <span style="color: yellow;">&</span> Roger</h1>
-            <p>F A L T AM</p>
+            <p style="font-size: 1.8em;">Estamos Casados há</p>
             <div class="row">
               <div id="countdown"></div>
             </div>
@@ -162,8 +162,67 @@
       
       </div>
 
+      <div class="row articles">
+
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados1.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados2.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados3.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados4.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados5.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados6.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+      
+      </div>      
+
     </div>
 
+      <div class="row articles">
+
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados7.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados8.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados9.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados10.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados11.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+        <div class="col-xs-2 article-img">
+          <a href="#"><img src="{% static 'themes/default/img/casados12.jpg' %}" alt=""></a>
+          <div class="article-overlay"></div>
+        </div>
+      
+      </div>      
+
+    </div>
     
     <!-- Team 
     <section id="team" class="section">
@@ -328,7 +387,7 @@
          */
 
         $.backstretch([
-          "{% static 'themes/default/img/background/1.jpg' %}"
+          "{% static 'themes/default/img/background/versao2.jpg' %}"
         ]);
 
         //new WOW({
@@ -372,21 +431,27 @@
          */
 
         var description = {
-          weeks: "Semanas",
-          days: "Dias",
-          hours: "Horas",
-          minutes: "Minutos",
-          seconds: "Segundos"
+          weeks: " ",
+          days: " ",
+          hours: "YEARs",
+          minutes: " ",
+          seconds: " "
         };
         
         // year/month/day
         $('#countdown').countdown('2015/7/4 16:00:00', function (event) {
+          //$(this).html(event.strftime(
+          //  '<div class="countdown-section"><b>%w</b> <span>' + description.weeks + '</span> </div>' +
+          //  '<div class="countdown-section"><b>%d</b> <span>' + description.days + '</span> </div>' +
+          //  '<div class="countdown-section"><b>%H</b> <span>' + description.hours + '</span> </div>' +
+          //  '<div class="countdown-section"><b>%M</b> <span>' + description.minutes + '</span> </div>' +
+          //  '<div class="countdown-section"><b>%S</b> <span>' + description.seconds + '</span> </div>'
+          //));
+
           $(this).html(event.strftime(
-            '<div class="countdown-section"><b>%w</b> <span>' + description.weeks + '</span> </div>' +
-            '<div class="countdown-section"><b>%d</b> <span>' + description.days + '</span> </div>' +
-            '<div class="countdown-section"><b>%H</b> <span>' + description.hours + '</span> </div>' +
-            '<div class="countdown-section"><b>%M</b> <span>' + description.minutes + '</span> </div>' +
-            '<div class="countdown-section"><b>%S</b> <span>' + description.seconds + '</span> </div>'
+            '<div class="countdown-section"><b>00</b> <span>...</span> </div>' +
+            '<div class="countdown-section"><b>00</b> <span>...</span> </div>' +
+            '<div class="countdown-section"><b>+02</b> <span style="font-size: 0.6em;">Anos</span> </div>'
           ));
         });
 
